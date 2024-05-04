@@ -1,32 +1,8 @@
 # Data Science HW3
 
-## TODO
-* model.py
-  * implement your own node classification model
-* train.py
-  * setup your model
-
-## You can create the environment with anaconda
-```
-conda create --name hw3 pip -y
-conda activate hw3
-```
-## Install packages
-* scipy, networkx
-```
-pip install scipy networkx
-```
-* Install dgl
-  * https://www.dgl.ai/pages/start.html
-  * recommend 2.0.0
-
-* Install pytorch
-  * https://pytorch.org/get-started/locally/
-  * recommend 2.2.0
-
-## Run sample code
+## Run the code
 ```python
-python3 train.py --es_iters 30 --epochs 300 --use_gpu
+python train.py --es_iters 30 --epochs 150 --use_gpu
 ```
 
 ## Dataset
