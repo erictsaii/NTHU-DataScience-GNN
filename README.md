@@ -2,7 +2,7 @@
 
 ## Run the code
 ```python
-python train.py --es_iters 30 --epochs 150 --use_gpu
+python train.py --es_iters 30 --epochs 150
 ```
 
 ## Dataset
