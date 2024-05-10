@@ -34,6 +34,7 @@ class GCN(nn.Module):
 
 
 class CRD(torch.nn.Module):
+
     def __init__(self, d_in, d_out, p):
         super(CRD, self).__init__()
         self.conv = GCNConv(in_channels=d_in, out_channels=d_out, cached=True)
@@ -46,6 +47,7 @@ class CRD(torch.nn.Module):
 
 
 class CLS(torch.nn.Module):
+
     def __init__(self, d_in, d_out):
         super(CLS, self).__init__()
         self.conv = GCNConv(in_channels=d_in, out_channels=d_out, cached=True)
@@ -57,6 +59,7 @@ class CLS(torch.nn.Module):
 
 
 class Net(torch.nn.Module):
+
     def __init__(self, din, dhid, dout):
         super(Net, self).__init__()
         self.crd = CRD(din, dhid, 0.5)

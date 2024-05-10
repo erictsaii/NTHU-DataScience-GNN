@@ -41,7 +41,9 @@ def train(
 
     # define train/val samples, loss function and optimizer
     loss_fcn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-2, weight_decay=0.0005)
+    optimizer = torch.optim.Adam(model.parameters(),
+                                 lr=2 * 1e-2,
+                                 weight_decay=0.00025)
 
     # If early stopping criteria, initialize relevant parameters
     if es_iters:
@@ -56,11 +58,8 @@ def train(
         loss = loss_fcn(logits[train_mask], train_labels)
 
         acc = evaluate(g, features, val_labels, val_mask, model)
-        print(
-            "Epoch {:05d} | Loss {:.4f} | Accuracy {:.4f} ".format(
-                epoch, loss.item(), acc
-            )
-        )
+        print("Epoch {:05d} | Loss {:.4f} | Accuracy {:.4f} ".format(
+            epoch, loss.item(), acc))
 
         val_loss = loss_fcn(logits[val_mask], val_labels)
         optimizer.zero_grad()
@@ -85,9 +84,9 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     # you can add your arguments if needed
     parser.add_argument("--epochs", type=int, default=150)
-    parser.add_argument(
-        "--es_iters", type=int, help="num of iters to trigger early stopping"
-    )
+    parser.add_argument("--es_iters",
+                        type=int,
+                        help="num of iters to trigger early stopping")
     parser.add_argument("--use_gpu", action="store_true")
     args = parser.parse_args()
 
@@ -113,7 +112,7 @@ if __name__ == "__main__":
     """TODO: build your own model in model.py and replace GCN() with your model"""
     in_size = features.shape[1]
     out_size = num_classes
-    model = Net(in_size, 16, out_size).to(device)  # 128
+    model = Net(in_size, 128, out_size).to(device)
 
     # model training
     print("Training...")
@@ -132,7 +131,8 @@ if __name__ == "__main__":
     print("Testing...")
     model.eval()
     with torch.no_grad():
-        logits = model(features, torch.stack((graph.edges()[0], graph.edges()[1])))
+        logits = model(features,
+                       torch.stack((graph.edges()[0], graph.edges()[1])))
         logits = logits[test_mask]
         _, indices = torch.max(logits, dim=1)
 
